@@ -15,6 +15,8 @@
         "Мультивалютные счета"
       ],
       "premium": false,
+      "style": "gold",
+      "badge": "Базовая премиальная",
       "color": "#1A56DB",
       "link": "https://t.me/TGMarketPayBot?start=pl_2bc2f2820f10302c_34990_VISAGOLD"
     },
@@ -33,6 +35,8 @@
         "SWIFT-переводы"
       ],
       "premium": false,
+      "style": "graphite",
+      "badge": "Повышенные лимиты",
       "color": "#0B2447",
       "link": "https://t.me/TGMarketPayBot?start=pl_2bc2f2820f10302c_37990_VISAINFINITE"
     },
@@ -51,6 +55,8 @@
         "Предложения Mastercard"
       ],
       "premium": false,
+      "style": "warmgold",
+      "badge": "EUR / KGS",
       "color": "#EB001B",
       "link": "https://t.me/TGMarketPayBot?start=pl_2bc2f2820f10302c_34990_MastercardGOLD"
     },
@@ -70,6 +76,8 @@
         "Премиальные привилегии Mastercard"
       ],
       "premium": true,
+      "style": "elite",
+      "badge": "Флагманская карта",
       "color": "#0A0A0A",
       "link": "https://t.me/TGMarketPayBot?start=pl_2bc2f2820f10302c_39990_MastercardELITE"
     }
@@ -77,11 +85,11 @@
   "comparison": {
     "rows": [
       { "label": "Стоимость", "values": ["34 990 ₽", "37 990 ₽", "34 990 ₽", "39 990 ₽"] },
-      { "label": "Валюта счёта", "values": ["USD/EUR/USD", "USD/EUR/USD", "EUR/KGS", "USD/EUR/GBP"] },
-      { "label": "Суточный лимит", "values": ["6 000 $", "20 000 $", "По умолчанию банка", "Повышенный"] },
-      { "label": "Годовое обслуживание", "values": ["По тарифу банка", "По тарифу банка", "По тарифу банка", "По тарифу банка"] },
-      { "label": "Неснижаемый остаток", "values": ["Нет", "Нет", "Нет", "Нет"] },
-      { "label": "Lounge", "values": ["—", "✓", "—", "✓ Без ограничений"] },
+      { "label": "Валюта счёта", "values": ["USD / EUR", "USD / EUR", "EUR / KGS", "уточняется по тарифам банка"] },
+      { "label": "Суточный лимит", "values": ["6 000 $", "20 000 $", "уточняется по тарифам банка", "повышенный лимит"] },
+      { "label": "Годовое обслуживание", "values": ["уточняется по тарифам банка", "уточняется по тарифам банка", "уточняется по тарифам банка", "уточняется по тарифам банка"] },
+      { "label": "Неснижаемый остаток", "values": ["—", "обязательный остаток", "—", "обязательный остаток"] },
+      { "label": "Lounge", "values": ["—", "✓", "—", "✓ без ограничений"] },
       { "label": "Fast Track", "values": ["—", "—", "—", "✓"] },
       { "label": "Личный менеджер", "values": ["—", "✓", "—", "✓"] },
       { "label": "Страховка", "values": ["—", "—", "—", "✓"] },

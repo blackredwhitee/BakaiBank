@@ -4,6 +4,7 @@ import CardsSection from "@/components/CardsSection";
 import ComparisonSection from "@/components/ComparisonSection";
 import PhotosSection from "@/components/PhotosSection";
 import Footer from "@/components/Footer";
+import StickyCta from "@/components/StickyCta";
 import {
   TrustSection,
   MerchantsSection,
@@ -50,6 +51,8 @@ export default function Home() {
         <FinalCtaSection />
       </main>
       <Footer />
+      <StickyCta />
+      <div className="h-16 md:hidden" aria-hidden />
     </>
   );
 }

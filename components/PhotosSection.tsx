@@ -16,7 +16,7 @@ export default function PhotosSection() {
         <div className="grid grid-cols-1 gap-5 sm:grid-cols-2 lg:grid-cols-4">
           {cardsData.cards.map((card) => (
             <figure key={card.id} className="rounded-2xl bg-white p-4 shadow-sm border border-slate-100">
-              <CardVisual name={card.name} brand={card.brand} color={card.color} premium={card.premium} />
+              <CardVisual name={card.name} brand={card.brand} style={card.style} badge={card.badge} />
               <figcaption className="mt-3 text-center text-sm font-medium text-slate-600">{card.name}</figcaption>
             </figure>
           ))}

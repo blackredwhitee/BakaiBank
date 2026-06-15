@@ -33,20 +33,42 @@ export function TrustSection() {
 }
 
 /* ---------- Block 5: Оплачивайте по всему миру ---------- */
-const MERCHANTS = ["Booking", "Airbnb", "Netflix", "Spotify", "ChatGPT", "Google", "Google Ads", "Amazon", "Steam", "Zoom", "Canva", "Adobe"];
+const MERCHANTS: { name: string; color: string }[] = [
+  { name: "Booking", color: "#003580" },
+  { name: "Airbnb", color: "#FF5A5F" },
+  { name: "Netflix", color: "#E50914" },
+  { name: "Spotify", color: "#1DB954" },
+  { name: "ChatGPT", color: "#10A37F" },
+  { name: "Google", color: "#4285F4" },
+  { name: "Google Ads", color: "#34A853" },
+  { name: "Amazon", color: "#FF9900" },
+  { name: "Steam", color: "#1B2838" },
+  { name: "Zoom", color: "#2D8CFF" },
+  { name: "Canva", color: "#00C4CC" },
+  { name: "Adobe", color: "#FF0000" },
+];
 
 export function MerchantsSection() {
   return (
-    <section className="bg-slate-50 py-16 md:py-24">
+    <section className="bg-white py-16 md:py-24">
       <Container>
-        <SectionTitle title="Оплачивайте зарубежные сервисы и покупки" />
-        <div className="grid grid-cols-2 gap-4 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-6">
+        <SectionTitle
+          title="Оплачивайте зарубежные сервисы и покупки"
+          subtitle="Карта подходит для подписок, онлайн-сервисов и покупок в зарубежных магазинах."
+        />
+        <div className="grid grid-cols-2 gap-3 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-6">
           {MERCHANTS.map((m) => (
             <div
-              key={m}
-              className="flex h-20 items-center justify-center rounded-2xl border border-slate-200 bg-white text-sm md:text-base font-semibold text-slate-600 shadow-sm"
+              key={m.name}
+              className="group flex flex-col items-center gap-3 rounded-2xl border border-slate-100 bg-slate-50/60 px-4 py-6 text-center transition-all duration-300 hover:-translate-y-1 hover:border-blue-100 hover:bg-white hover:shadow-lg"
             >
-              {m}
+              <span
+                className="flex h-11 w-11 items-center justify-center rounded-xl text-base font-bold text-white shadow-sm transition-transform duration-300 group-hover:scale-110"
+                style={{ background: m.color }}
+              >
+                {m.name[0]}
+              </span>
+              <span className="text-sm md:text-base font-semibold text-slate-600">{m.name}</span>
             </div>
           ))}
         </div>
@@ -63,26 +85,35 @@ const COVERAGE_COUNTRIES = ["Европа", "США", "ОАЭ", "Турция", 
 
 export function CoverageSection() {
   return (
-    <section id="coverage" className="bg-white py-16 md:py-24">
-      <Container>
-        <SectionTitle title="Где работает карта" subtitle="Карта принимается для платежей по всему миру." />
+    <section id="coverage" className="relative overflow-hidden bg-[var(--brand-navy)] py-16 md:py-24">
+      <div
+        className="pointer-events-none absolute top-0 left-1/2 h-[500px] w-[500px] -translate-x-1/2 rounded-full opacity-20 blur-3xl"
+        style={{ background: "radial-gradient(circle, var(--brand-blue), transparent 70%)" }}
+      />
+      <Container className="relative">
+        <div className="mb-10 md:mb-14 text-center">
+          <h2 className="text-2xl md:text-4xl font-bold tracking-tight text-white">Где работает карта</h2>
+          <p className="mt-3 text-base md:text-lg text-slate-300 max-w-2xl mx-auto">
+            Карта принимается для платежей по всему миру.
+          </p>
+        </div>
 
         <div className="grid gap-10 lg:grid-cols-2 lg:items-center">
-          <div className="rounded-3xl border border-slate-100 bg-slate-50/60 p-6 md:p-10">
+          <div className="rounded-3xl border border-white/10 bg-white/5 p-6 md:p-10 backdrop-blur-sm">
             <WorldMap />
           </div>
 
           <div>
             <div className="grid grid-cols-2 gap-3 sm:grid-cols-3">
               {COVERAGE_COUNTRIES.map((c) => (
-                <div key={c} className="flex items-center gap-2 rounded-xl bg-blue-50 px-4 py-3 text-sm md:text-base font-medium text-[var(--brand-navy)]">
-                  <span className="text-green-500">✅</span> {c}
+                <div key={c} className="flex items-center gap-2 rounded-xl border border-white/10 bg-white/5 px-4 py-3 text-sm md:text-base font-medium text-white backdrop-blur-sm transition-colors hover:bg-white/10">
+                  <span className="text-emerald-400">●</span> {c}
                 </div>
               ))}
             </div>
 
-            <div className="mt-6 flex items-center gap-2 rounded-xl bg-red-50 px-4 py-3 text-sm md:text-base font-medium text-red-600">
-              <span>❌</span> Карта не работает на территории РФ
+            <div className="mt-6 flex items-center gap-2 rounded-xl border border-red-400/30 bg-red-500/10 px-4 py-3 text-sm md:text-base font-medium text-red-300">
+              <span>●</span> Карта не работает на территории РФ
             </div>
           </div>
         </div>
@@ -92,19 +123,26 @@ export function CoverageSection() {
 }
 
 function WorldMap() {
+  const points: [number, number, number][] = [
+    [80, 60, 22], [150, 100, 16], [220, 70, 26], [300, 120, 18], [360, 90, 22],
+    [430, 140, 16], [480, 70, 20], [520, 150, 14], [200, 200, 20], [350, 210, 16],
+    [120, 180, 18], [450, 220, 20],
+  ];
+  const highlights: [number, number][] = [[80, 60], [220, 70], [430, 140], [520, 150], [350, 210], [120, 180], [300, 120]];
+
   return (
     <svg viewBox="0 0 600 300" className="w-full" aria-hidden>
-      <rect width="600" height="300" rx="24" fill="#EFF6FF" />
-      {[
-        [80, 60], [150, 100], [220, 70], [300, 120], [360, 90], [430, 140],
-        [480, 70], [520, 150], [200, 200], [350, 210], [120, 180], [450, 220],
-      ].map(([x, y], i) => (
-        <circle key={i} cx={x} cy={y} r={i % 3 === 0 ? 26 : 18} fill="#BFDBFE" opacity="0.7" />
+      {points.map(([x, y, r], i) => (
+        <circle key={i} cx={x} cy={y} r={r} fill="rgba(255,255,255,0.06)" />
       ))}
-      {[
-        [80, 60], [220, 70], [430, 140], [520, 150], [350, 210], [120, 180], [300, 120],
-      ].map(([x, y], i) => (
-        <circle key={`p-${i}`} cx={x} cy={y} r={5} fill="var(--brand-blue)" />
+      {highlights.map(([x, y], i) => (
+        <g key={`p-${i}`}>
+          <circle cx={x} cy={y} r={14} fill="var(--brand-blue)" opacity="0.18">
+            <animate attributeName="r" values="10;18;10" dur="2.5s" repeatCount="indefinite" begin={`${i * 0.3}s`} />
+            <animate attributeName="opacity" values="0.3;0.05;0.3" dur="2.5s" repeatCount="indefinite" begin={`${i * 0.3}s`} />
+          </circle>
+          <circle cx={x} cy={y} r={5} fill="#60A5FA" />
+        </g>
       ))}
     </svg>
   );
@@ -171,14 +209,14 @@ export function IncludedSection() {
 
 /* ---------- Block 9: Как проходит оформление ---------- */
 const STEPS = [
-  "Выбираете карту",
-  "Оплачиваете выпуск",
-  "Передаёте документы",
-  "Отправляем анкету в банк",
-  "Банк выпускает карту",
-  "Получаете SMS и доступ в мобильное приложение",
-  "Карта доставляется в Россию",
-  "Курьер привозит карту",
+  { title: "Выбираете карту", icon: "💳" },
+  { title: "Оплачиваете выпуск", icon: "💰" },
+  { title: "Передаёте документы", icon: "📄" },
+  { title: "Отправляем анкету в банк", icon: "📨" },
+  { title: "Банк выпускает карту", icon: "🏦" },
+  { title: "Получаете SMS и доступ в приложение", icon: "📱" },
+  { title: "Карта доставляется в Россию", icon: "✈️" },
+  { title: "Курьер привозит карту", icon: "📦" },
 ];
 
 export function ProcessSection() {
@@ -186,17 +224,48 @@ export function ProcessSection() {
     <section id="process" className="bg-slate-50 py-16 md:py-24">
       <Container>
         <SectionTitle title="Как проходит оформление" />
-        <div className="grid grid-cols-1 gap-4 sm:grid-cols-2 lg:grid-cols-4">
-          {STEPS.map((step, i) => (
-            <div key={step} className="rounded-2xl border border-slate-100 bg-white p-6 shadow-sm">
-              <span className="flex h-9 w-9 items-center justify-center rounded-full bg-[var(--brand-navy)] text-sm font-bold text-white">
-                {i + 1}
-              </span>
-              <p className="mt-4 text-sm md:text-base font-medium text-slate-700">{step}</p>
-            </div>
-          ))}
+
+        {/* Desktop: zigzag timeline */}
+        <div className="hidden lg:block">
+          <div className="grid grid-cols-4 gap-x-6">
+            {STEPS.map((step, i) => (
+              <div key={step.title} className={`flex flex-col ${i % 2 === 1 ? "mt-16" : ""}`}>
+                <div className="relative rounded-2xl border border-slate-100 bg-white p-6 shadow-sm">
+                  <span className="flex h-10 w-10 items-center justify-center rounded-full bg-[var(--brand-navy)] text-sm font-bold text-white">
+                    {i + 1}
+                  </span>
+                  <span className="absolute top-5 right-5 text-2xl">{step.icon}</span>
+                  <p className="mt-4 text-sm md:text-base font-medium text-slate-700">{step.title}</p>
+                </div>
+                {i < STEPS.length - 1 && (
+                  <div className={`h-8 w-px self-center bg-slate-200 ${i % 2 === 1 ? "order-first mb-0" : "mt-0"}`} />
+                )}
+              </div>
+            ))}
+          </div>
         </div>
-        <p className="mx-auto mt-8 max-w-2xl text-center text-sm text-slate-500">
+
+        {/* Mobile / tablet: vertical timeline */}
+        <div className="relative lg:hidden">
+          <div className="absolute left-5 top-2 bottom-2 w-px bg-slate-200" />
+          <div className="space-y-5">
+            {STEPS.map((step, i) => (
+              <div key={step.title} className="relative flex items-start gap-4 pl-0">
+                <span className="relative z-10 flex h-10 w-10 shrink-0 items-center justify-center rounded-full bg-[var(--brand-navy)] text-sm font-bold text-white">
+                  {i + 1}
+                </span>
+                <div className="flex-1 rounded-2xl border border-slate-100 bg-white p-4 shadow-sm">
+                  <p className="text-sm md:text-base font-medium text-slate-700">
+                    <span className="mr-2">{step.icon}</span>
+                    {step.title}
+                  </p>
+                </div>
+              </div>
+            ))}
+          </div>
+        </div>
+
+        <p className="mx-auto mt-10 max-w-2xl text-center text-sm text-slate-500">
           Средний срок выпуска составляет 10–14 рабочих дней.
           <br />
           Срок ориентировочный и зависит от загрузки банка, логистики и праздничных дней.
@@ -281,38 +350,67 @@ const APP_FEATURES = [
   "Поддержка банка",
 ];
 
+const APP_ICONS: Record<string, string> = {
+  "Просмотр баланса": "💰",
+  "Переводы": "↔️",
+  "Валютные счета": "🌍",
+  "SWIFT": "🏦",
+  "Выписки": "🧾",
+  "Управление лимитами": "⚙️",
+  "Блокировка карты": "🔒",
+  "Поддержка банка": "💬",
+};
+
 export function MobileAppSection() {
   return (
-    <section className="bg-slate-50 py-16 md:py-24">
-      <Container className="grid items-center gap-12 lg:grid-cols-2">
+    <section className="relative overflow-hidden bg-slate-50 py-16 md:py-24">
+      <div
+        className="pointer-events-none absolute bottom-0 left-1/4 h-[420px] w-[420px] rounded-full opacity-15 blur-3xl"
+        style={{ background: "radial-gradient(circle, var(--brand-blue), transparent 70%)" }}
+      />
+      <Container className="relative grid items-center gap-12 lg:grid-cols-2">
         <div className="order-2 lg:order-1">
-          <SectionTitle title="Мобильное приложение" center={false} />
-          <ul className="grid grid-cols-1 gap-3 sm:grid-cols-2">
+          <SectionTitle title="Мобильное приложение" subtitle="Полный контроль над картой и счетами — прямо со смартфона." center={false} />
+          <div className="grid grid-cols-1 gap-3 sm:grid-cols-2">
             {APP_FEATURES.map((f) => (
-              <li key={f} className="flex items-center gap-2.5 rounded-xl bg-white border border-slate-100 px-4 py-3 text-sm md:text-base text-slate-700">
-                <span className="h-1.5 w-1.5 rounded-full bg-[var(--brand-blue)]" />
+              <div key={f} className="flex items-center gap-3 rounded-xl bg-white border border-slate-100 px-4 py-3.5 text-sm md:text-base text-slate-700 shadow-sm transition-shadow hover:shadow-md">
+                <span className="flex h-9 w-9 shrink-0 items-center justify-center rounded-full bg-blue-50 text-lg">
+                  {APP_ICONS[f]}
+                </span>
                 {f}
-              </li>
+              </div>
             ))}
-          </ul>
+          </div>
         </div>
 
         <div className="order-1 mx-auto flex justify-center lg:order-2">
-          <div className="relative h-[420px] w-[230px] rounded-[2rem] border-8 border-[var(--brand-navy)] bg-white shadow-2xl">
-            <div className="absolute inset-x-0 top-0 flex justify-center pt-4">
-              <div className="h-1.5 w-16 rounded-full bg-slate-200" />
+          <div className="relative h-[460px] w-[240px] rounded-[2.5rem] border-[10px] border-[var(--brand-navy)] bg-[var(--brand-navy)] shadow-2xl shadow-slate-900/30">
+            <div className="absolute inset-x-0 top-0 z-10 flex justify-center pt-2">
+              <div className="h-5 w-28 rounded-b-2xl bg-[var(--brand-navy)]" />
             </div>
-            <div className="flex h-full flex-col gap-3 px-4 pt-12">
-              <div className="rounded-xl bg-[var(--brand-navy)] p-4 text-white">
-                <p className="text-xs text-white/60">Баланс</p>
+            <div className="flex h-full flex-col gap-3 overflow-hidden rounded-[1.75rem] bg-white px-4 pt-8 pb-4">
+              <p className="text-xs font-semibold text-slate-400">Мои счета</p>
+              <div className="rounded-2xl bg-gradient-to-br from-[var(--brand-navy)] to-blue-700 p-4 text-white shadow-lg">
+                <p className="text-xs text-white/60">Основной счёт · USD</p>
                 <p className="mt-1 text-2xl font-bold">$ 4 280.50</p>
+                <div className="mt-4 flex gap-2">
+                  <span className="rounded-full bg-white/15 px-3 py-1 text-[10px] font-semibold">Перевод</span>
+                  <span className="rounded-full bg-white/15 px-3 py-1 text-[10px] font-semibold">SWIFT</span>
+                </div>
               </div>
-              {["USD", "EUR", "KGS"].map((c) => (
-                <div key={c} className="flex items-center justify-between rounded-xl bg-slate-50 px-4 py-3">
-                  <span className="text-sm font-semibold text-slate-600">{c}</span>
-                  <span className="text-sm text-slate-400">•••</span>
+              {[
+                { c: "EUR", v: "1 120.30" },
+                { c: "KGS", v: "85 400" },
+              ].map((row) => (
+                <div key={row.c} className="flex items-center justify-between rounded-xl bg-slate-50 px-4 py-3">
+                  <span className="text-sm font-semibold text-slate-600">{row.c}</span>
+                  <span className="text-sm text-slate-500">{row.v}</span>
                 </div>
               ))}
+              <div className="mt-auto flex items-center justify-between rounded-xl border border-dashed border-slate-200 px-4 py-3 text-xs text-slate-400">
+                <span>Карта</span>
+                <span className="font-mono">•••• 4829</span>
+              </div>
             </div>
           </div>
         </div>
@@ -415,31 +513,28 @@ export function ConcernsSection() {
   );
 }
 
-/* ---------- Block 18: Отзывы ---------- */
-const REVIEWS = [
-  { name: "Артём", city: "Москва", card: "Visa Infinite", text: "Оформил карту для поездок — лимит и Lounge закрывают все вопросы. Доставка пришла за 12 дней." },
-  { name: "Дарья", city: "Санкт-Петербург", card: "Mastercard Gold", text: "Удобно, что счёт в евро — оплачиваю европейские сервисы без проблем." },
-  { name: "Ильяс", city: "Казань", card: "Visa Gold", text: "Подключил Google Pay сразу после активации. Поддержка отвечала быстро на каждом шаге." },
+/* ---------- Block 18: Что вы получаете после оформления ---------- */
+const DELIVERABLES = [
+  { title: "Именная карта", desc: "Visa или Mastercard, выпущенная на ваше имя", icon: "💳" },
+  { title: "Доступ к мобильному приложению", desc: "Полное управление счетами и картой со смартфона", icon: "📱" },
+  { title: "Договор и документы", desc: "Полный комплект документов по оформлению", icon: "📄" },
+  { title: "Инструкция по активации", desc: "Понятный пошаговый гайд для первого запуска", icon: "📋" },
+  { title: "Поддержка менеджера", desc: "Сопровождение на каждом этапе после получения карты", icon: "🤝" },
 ];
 
 export function ReviewsSection() {
   return (
     <section className="bg-slate-50 py-16 md:py-24">
       <Container>
-        <SectionTitle title="Отзывы клиентов" />
-        <div className="grid grid-cols-1 gap-6 md:grid-cols-3">
-          {REVIEWS.map((r) => (
-            <div key={r.name} className="rounded-2xl bg-white border border-slate-100 p-6 shadow-sm">
-              <p className="text-sm md:text-base text-slate-600">«{r.text}»</p>
-              <div className="mt-5 flex items-center gap-3">
-                <span className="flex h-10 w-10 items-center justify-center rounded-full bg-[var(--brand-navy)] text-sm font-bold text-white">
-                  {r.name[0]}
-                </span>
-                <div>
-                  <p className="text-sm font-semibold text-[var(--brand-navy)]">{r.name}, {r.city}</p>
-                  <p className="text-xs text-slate-400">{r.card}</p>
-                </div>
-              </div>
+        <SectionTitle title="Что вы получаете после оформления" />
+        <div className="grid grid-cols-1 gap-5 sm:grid-cols-2 lg:grid-cols-5">
+          {DELIVERABLES.map((item) => (
+            <div key={item.title} className="rounded-2xl bg-white border border-slate-100 p-6 shadow-sm transition-shadow hover:shadow-lg">
+              <span className="flex h-12 w-12 items-center justify-center rounded-2xl bg-blue-50 text-2xl">
+                {item.icon}
+              </span>
+              <h3 className="mt-4 text-sm md:text-base font-semibold text-[var(--brand-navy)]">{item.title}</h3>
+              <p className="mt-1.5 text-sm text-slate-500">{item.desc}</p>
             </div>
           ))}
         </div>
